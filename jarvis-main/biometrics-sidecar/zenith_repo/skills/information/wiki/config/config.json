@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../../schemas/skill-schemas/skill-config.json",
+  "actions": {
+    "search_wikipedia": {
+      "type": "logic",
+      "utterance_samples": [
+        "Search Wikipedia for Nikola Tesla",
+        "Tell me about arc reactors",
+        "Who is Alan Turing",
+        "Look up quantum computing on Wikipedia"
+      ],
+      "answers": [
+        "Here's what I found on %topic%: %summary%",
+        "Wikipedia says this about %topic%: %summary%"
+      ],
+      "unknown_answers": [
+        "I couldn't find a Wikipedia page for %topic%.",
+        "Wikipedia does not have a clear result for %topic%."
+      ]
+    }
+  },
+  "answers": {}
+}
+

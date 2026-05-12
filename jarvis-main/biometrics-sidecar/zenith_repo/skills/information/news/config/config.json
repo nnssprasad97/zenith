@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../../schemas/skill-schemas/skill-config.json",
+  "actions": {
+    "get_headlines": {
+      "type": "logic",
+      "utterance_samples": [
+        "Tell me the news",
+        "Give me today's headlines",
+        "What's in the news",
+        "Read the top headlines",
+        "News update"
+      ],
+      "answers": [
+        "Here are today's headlines: %news%",
+        "Top stories right now: %news%"
+      ],
+      "unknown_answers": [
+        "I couldn't fetch the news right now.",
+        "The news feed did not respond properly."
+      ]
+    }
+  },
+  "answers": {}
+}
+

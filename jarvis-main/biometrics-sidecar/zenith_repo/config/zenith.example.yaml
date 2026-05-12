@@ -1,0 +1,50 @@
+# Zenith Configuration
+# Example file with empty key values.
+
+server:
+  port: 1337
+  data_dir: "~/.zenith"
+
+voice:
+  stt_provider: "groq_whisper"      # groq_whisper | google | deepgram
+  tts_provider: "google_cloud"      # google_cloud | kokoro_local
+  wake_word: "zenith"
+  language: "en-US"
+  livekit_url: ""
+
+llm:
+  primary: "gemini"
+  fallback: ["groq", "openrouter"]
+
+  gemini:
+    api_key: ""
+    model: "gemini-2.5-flash"
+
+  groq:
+    api_key: ""
+    model: "llama-3.3-70b-versatile"
+
+  openrouter:
+    api_key: ""
+    model: "meta-llama/llama-3.3-70b-instruct"
+
+personality:
+  name: "Zenith"
+  style: "friday"                   # tony-stark friday style
+  core_traits: ["loyal", "precise", "proactive", "efficient"]
+  address_user_as: "sir"
+
+skills:
+  enabled: true
+  nlp_confidence_threshold: 0.6    # below this, route to LLM
+  auto_learn: false                 # future scope
+
+memory:
+  db_type: "tinydb"                 # tinydb | sqlite
+  db_path: "~/.zenith/zenith.db"
+  chat_history_limit: 100
+
+ui:
+  theme: "stark"                    # stark | minimal | neon
+  port: 1337
+

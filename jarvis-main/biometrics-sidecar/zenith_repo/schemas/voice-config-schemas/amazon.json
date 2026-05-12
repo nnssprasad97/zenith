@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "credentials": {
+      "type": "object",
+      "properties": {
+        "accessKeyId": {
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accessKeyId",
+        "secretAccessKey"
+      ]
+    },
+    "region": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "credentials",
+    "region"
+  ]
+}

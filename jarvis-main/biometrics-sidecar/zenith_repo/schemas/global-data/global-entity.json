@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "description": "Global entities can hold data that can directly be reused in skills.",
+  "type": "object",
+  "properties": {
+    "options": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {
+            "synonyms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "data": {
+              "type": "object",
+              "patternProperties": {
+                "^.*$": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "synonyms"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "options"
+  ]
+}

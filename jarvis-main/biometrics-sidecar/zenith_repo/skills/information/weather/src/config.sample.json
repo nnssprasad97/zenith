@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../../schemas/skill-schemas/skill-config.json",
+  "actions": {
+    "get_weather": {
+      "type": "logic",
+      "utterance_samples": [
+        "What's the weather",
+        "What's the weather in Mumbai",
+        "Show me the weather for Delhi",
+        "How is the weather at Bangalore"
+      ],
+      "answers": [
+        "The weather in %location% is %summary%, %temperature% degrees Celsius, with humidity at %humidity% percent.",
+        "Current conditions for %location%: %summary%, %temperature% C, humidity %humidity% percent."
+      ],
+      "unknown_answers": [
+        "I couldn't fetch the weather for %location% right now.",
+        "The weather service did not return usable data for %location%."
+      ]
+    }
+  },
+  "answers": {}
+}
+

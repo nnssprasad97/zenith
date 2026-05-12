@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill.json",
+  "name": "Dictionary",
+  "bridge": "python",
+  "version": "1.0.0",
+  "description": "Look up word definitions.",
+  "author": {
+    "name": "Zenith",
+    "email": "zenith@example.com",
+    "url": "https://github.com"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill.json",
+  "name": "News",
+  "bridge": "python",
+  "version": "1.0.0",
+  "description": "Read top headlines using News API.",
+  "author": {
+    "name": "Zenith",
+    "email": "zenith@example.com",
+    "url": "https://github.com"
+  }
+}

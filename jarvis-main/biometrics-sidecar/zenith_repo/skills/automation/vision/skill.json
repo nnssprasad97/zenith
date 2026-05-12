@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "name": "vision",
+  "bridge": "python",
+  "author": {
+    "name": "Zenith AI",
+    "email": "zenith@example.com",
+    "url": "https://github.com/nnssprasad97/zenith"
+  },
+  "actions": {
+    "face_auth": {
+      "type": "logic",
+      "loop": {
+        "expected_item": {
+          "type": "entity",
+          "name": "person"
+        }
+      }
+    },
+    "ocr_scan": {
+      "type": "logic",
+      "loop": {
+        "expected_item": {
+          "type": "entity",
+          "name": "image"
+        }
+      }
+    },
+    "detect_person": {
+      "type": "logic"
+    }
+  }
+}

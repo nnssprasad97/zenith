@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../schemas/skill-schemas/skill-config.json",
+  "actions": {
+    "youtube": {
+      "type": "logic",
+      "utterance_samples": [
+        "Search YouTube for lo fi beats",
+        "Play Iron Man trailer on YouTube",
+        "Open YouTube and search Arc Reactor",
+        "Find coding music on YouTube"
+      ],
+      "answers": [
+        "Opening YouTube results for %query%.",
+        "I've launched a YouTube search for %query%."
+      ]
+    }
+  },
+  "answers": {}
+}
+

@@ -1,0 +1,438 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "variables": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "actions": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {
+            "type": {
+              "anyOf": [
+                {
+                  "description": "It runs the business logic implemented in actions via code.",
+                  "const": "logic",
+                  "type": "string"
+                },
+                {
+                  "description": "Action that don't need code to run. Leon actually just answers without any business logic.",
+                  "const": "dialog",
+                  "type": "string"
+                }
+              ]
+            },
+            "loop": {
+              "additionalProperties": false,
+              "description": "The action loop is a concept to keep Leon triggering the same skill action until the logic of the skill breaks the loop according to new utterances content.",
+              "type": "object",
+              "properties": {
+                "expected_item": {
+                  "description": "An item can be a entity or a resolver.",
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "anyOf": [
+                        {
+                          "const": "skill_resolver",
+                          "type": "string"
+                        },
+                        {
+                          "const": "global_resolver",
+                          "type": "string"
+                        },
+                        {
+                          "const": "entity",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "name"
+                  ]
+                }
+              },
+              "required": [
+                "expected_item"
+              ]
+            },
+            "http_api": {
+              "additionalProperties": false,
+              "type": "object",
+              "properties": {
+                "entities": {
+                  "type": "array",
+                  "items": {
+                    "additionalProperties": false,
+                    "type": "object",
+                    "properties": {
+                      "entity": {
+                        "type": "string"
+                      },
+                      "resolution": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "entity",
+                      "resolution"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "entities"
+              ]
+            },
+            "utterance_samples": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "answers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "unknown_answers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "suggestions": {
+              "description": "Suggestions are a simple way to suggest Leon owners what can be answered next.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "slots": {
+              "description": "Depending on how skill developers wants to design their skill, they have the possibility to ask for more information before to get to the meat of the skill. In this way, Leon can gather these information to operate the skill in a complete manner. These information are called \"slots\".",
+              "type": "array",
+              "items": {
+                "additionalProperties": false,
+                "description": "A slot expects a type of data called \"item\", and makes use of questions to let Leon owners knows what data they need to provide.",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "item": {
+                    "additionalProperties": false,
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "anyOf": [
+                          {
+                            "const": "skill_resolver",
+                            "type": "string"
+                          },
+                          {
+                            "const": "global_resolver",
+                            "type": "string"
+                          },
+                          {
+                            "const": "entity",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "name"
+                    ]
+                  },
+                  "questions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "suggestions": {
+                    "description": "Suggestions are a simple way to suggest Leon owners what can be answered next.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "item",
+                  "questions"
+                ]
+              }
+            },
+            "entities": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "additionalProperties": false,
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "trim",
+                        "type": "string"
+                      },
+                      "name": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "conditions": {
+                        "type": "array",
+                        "items": {
+                          "additionalProperties": false,
+                          "description": "Trim: you can pick up a data from an utterance by clearly defining conditions (e.g: pick up what is after the last \"with\" word of the utterance).",
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "anyOf": [
+                                {
+                                  "const": "between",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "after",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "after_first",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "after_last",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "before",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "before_first",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "before_last",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "from": {
+                              "anyOf": [
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  }
+                                },
+                                {
+                                  "minLength": 1,
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "to": {
+                              "anyOf": [
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  }
+                                },
+                                {
+                                  "minLength": 1,
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "name",
+                      "conditions"
+                    ]
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "additionalProperties": false,
+                    "description": "Regex: you can create an entity based on a regex.",
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "regex",
+                        "type": "string"
+                      },
+                      "name": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "regex": {
+                        "minLength": 1,
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "name",
+                      "regex"
+                    ]
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "additionalProperties": false,
+                    "description": "Enum: define a bag of words and synonyms that should match your new entity.",
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "enum",
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "options": {
+                        "type": "object",
+                        "patternProperties": {
+                          "^.*$": {
+                            "type": "object",
+                            "properties": {
+                              "synonyms": {
+                                "type": "array",
+                                "items": {
+                                  "minLength": 1,
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "required": [
+                              "synonyms"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "name",
+                      "options"
+                    ]
+                  }
+                }
+              ]
+            },
+            "next_action": {
+              "description": "The next action property is useful when a skill needs to follow a specific order of actions, it helps to connect actions in a specific order to feed the context with data.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "answers": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "entities": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "resolvers": {
+      "description": "You can see resolvers as utterance samples that are converted (resolved) to a value of your choice. They are very handy when skills expect specific utterances and then according to these utterances attribute a value that can be handled by the skill. If a skill action expects to receive a resolver, then Leon will convert the value for you and this value will be usable from the skill action code. Any value can be passed to resolvers which allow a large possibilities of usages.",
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {
+            "intents": {
+              "type": "object",
+              "patternProperties": {
+                "^.*$": {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "properties": {
+                    "utterance_samples": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "value": {}
+                  },
+                  "required": [
+                    "utterance_samples",
+                    "value"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "intents"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "actions"
+  ]
+}

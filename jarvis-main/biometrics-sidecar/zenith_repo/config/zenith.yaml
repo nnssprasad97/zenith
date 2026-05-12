@@ -1,0 +1,50 @@
+# Zenith Configuration
+# Values below use environment-variable placeholders from .env.
+
+server:
+  port: 1337
+  data_dir: "~/.zenith"
+
+voice:
+  stt_provider: "groq_whisper"      # groq_whisper | google | deepgram
+  tts_provider: "google_cloud"      # google_cloud | kokoro_local
+  wake_word: "zenith"
+  language: "en-US"
+  livekit_url: "${LIVEKIT_URL}"     # from env: LIVEKIT_URL
+
+llm:
+  primary: "gemini"
+  fallback: ["groq", "openrouter"]
+
+  gemini:
+    api_key: "${GOOGLE_API_KEY}"    # from env: GOOGLE_API_KEY
+    model: "gemini-2.5-flash"
+
+  groq:
+    api_key: "${GROQ_API_KEY}"      # from env: GROQ_API_KEY
+    model: "llama-3.3-70b-versatile"
+
+  openrouter:
+    api_key: "${OPENROUTER_API_KEY}" # from env: OPENROUTER_API_KEY
+    model: "meta-llama/llama-3.3-70b-instruct"
+
+personality:
+  name: "Zenith"
+  style: "friday"                   # tony-stark friday style
+  core_traits: ["loyal", "precise", "proactive", "efficient"]
+  address_user_as: "sir"
+
+skills:
+  enabled: true
+  nlp_confidence_threshold: 0.6    # below this, route to LLM
+  auto_learn: false                 # future scope
+
+memory:
+  db_type: "tinydb"                 # tinydb | sqlite
+  db_path: "~/.zenith/zenith.db"
+  chat_history_limit: 100
+
+ui:
+  theme: "stark"                    # stark | minimal | neon
+  port: 1337
+

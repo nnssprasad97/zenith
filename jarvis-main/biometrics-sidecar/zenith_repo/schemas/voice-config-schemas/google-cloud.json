@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "service_account",
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "private_key_id": {
+      "type": "string"
+    },
+    "private_key": {
+      "type": "string"
+    },
+    "client_email": {
+      "format": "email",
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "auth_uri": {
+      "format": "uri",
+      "type": "string"
+    },
+    "token_uri": {
+      "format": "uri",
+      "type": "string"
+    },
+    "auth_provider_x509_cert_url": {
+      "format": "uri",
+      "type": "string"
+    },
+    "client_x509_cert_url": {
+      "format": "uri",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "project_id",
+    "private_key_id",
+    "private_key",
+    "client_email",
+    "client_id",
+    "auth_uri",
+    "token_uri",
+    "auth_provider_x509_cert_url",
+    "client_x509_cert_url"
+  ]
+}

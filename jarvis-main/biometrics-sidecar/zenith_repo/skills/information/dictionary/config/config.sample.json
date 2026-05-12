@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../schemas/skill-schemas/skill-config.json",
+  "actions": {
+    "translate": {
+      "type": "logic",
+      "utterance_samples": [
+        "Define velocity",
+        "What does resilient mean",
+        "Dictionary lookup for precision",
+        "Explain the word adaptive"
+      ],
+      "answers": [
+        "%word% as a %part_of_speech% means: %definition%",
+        "Definition for %word%: %definition%"
+      ]
+    }
+  },
+  "answers": {}
+}
+

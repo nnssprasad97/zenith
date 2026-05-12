@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "intents": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {
+            "utterance_samples": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "value": {}
+          },
+          "required": [
+            "utterance_samples",
+            "value"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "name",
+    "intents"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill.json",
+  "name": "Weather",
+  "bridge": "python",
+  "version": "1.0.0",
+  "description": "Get the current weather for a place.",
+  "author": {
+    "name": "Zenith",
+    "email": "zenith@example.com",
+    "url": "https://github.com"
+  }
+}
