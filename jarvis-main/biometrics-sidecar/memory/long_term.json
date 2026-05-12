@@ -1,0 +1,24 @@
+{
+  "preferences": {},
+  "known_users": [
+    "User_7",
+    "prasad"
+  ],
+  "facts": [],
+  "contacts": {},
+  "frequent_apps": {
+    "settings": 1
+  },
+  "intent_frequency": {
+    "question": 4,
+    "open_app": 1,
+    "local_settings": 4,
+    "chat": 3,
+    "file_operation": 1,
+    "multi_task": 2,
+    "get_info": 2,
+    "exit": 1,
+    "system_control": 1
+  },
+  "last_user": "prasad"
+}

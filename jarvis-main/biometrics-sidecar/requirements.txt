@@ -1,0 +1,48 @@
+# ============================================
+# JARVIS AI — Microservices Dependencies
+# ============================================
+
+# --- Core Python Env ---
+python-dotenv>=1.0.0
+
+# --- Computer Vision (Face Auth / YOLOv8 / OCR) ---
+opencv-contrib-python
+numpy
+Pillow
+ultralytics
+pytesseract
+
+# --- Speech (Legacy fallback TTS/STT for sidecar.py) ---
+pyttsx3>=2.90
+SpeechRecognition>=3.8.1
+PyAudio
+
+# --- LiveKit WebRTC Voice Agent ---
+livekit-agents[codecs,turn-detector,noise-cancellation]>=1.0
+livekit-plugins-openai>=0.10
+livekit-plugins-google>=0.10
+livekit-plugins-silero>=0.10
+
+# --- MCP Server ---
+mcp[cli]>=1.0
+
+# --- Browser Automation ---
+playwright>=1.44
+
+# --- Web & API ---
+requests>=2.28.0
+websockets>=12.0
+
+# --- System Automation ---
+PyAutoGUI>=0.9.53
+psutil>=5.9.0
+pyperclip>=1.8.2
+pywinauto>=0.6.8
+
+# --- LLM APIs ---
+google-generativeai>=0.7.0
+groq>=0.9.0
+
+# --- Misc Utilities ---
+beautifulsoup4>=4.12.0
+wikipedia>=1.4.0
