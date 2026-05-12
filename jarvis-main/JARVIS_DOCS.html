@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>J.A.R.V.I.S. — System Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #020408;
+    --surface: rgba(255,255,255,0.03);
+    --border: rgba(0,212,255,0.15);
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --danger: #f43f5e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;overflow-x:hidden}
+
+  /* Grid bg */
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
+  /* Glow orbs */
+  .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+  .orb1{width:600px;height:600px;background:rgba(0,212,255,0.06);top:-200px;right:-200px}
+  .orb2{width:400px;height:400px;background:rgba(124,58,237,0.08);bottom:100px;left:-100px}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(2,4,8,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+  .logo{font-weight:900;font-size:1.1rem;color:var(--accent);letter-spacing:2px}
+  .nav-links{display:flex;gap:2rem}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--accent)}
+
+  main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 2rem}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem}
+  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);border-radius:100px;padding:.4rem 1.2rem;font-size:.75rem;color:var(--accent);letter-spacing:2px;margin-bottom:2rem;background:rgba(0,212,255,0.05)}
+  .hero-badge span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+  h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:1.5rem}
+  h1 .cyan{color:var(--accent)}
+  h1 .purple{background:linear-gradient(135deg,var(--accent2),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero-sub{font-size:1.15rem;color:var(--muted);max-width:600px;margin:0 auto 2.5rem}
+  .badge-row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+  .badge{padding:.35rem .9rem;border-radius:6px;font-size:.75rem;font-weight:600;letter-spacing:.5px}
+  .badge.cyan{background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.3)}
+  .badge.purple{background:rgba(124,58,237,0.1);color:#a78bfa;border:1px solid rgba(124,58,237,0.3)}
+  .badge.green{background:rgba(16,185,129,0.1);color:var(--accent3);border:1px solid rgba(16,185,129,0.3)}
+  .badge.red{background:rgba(244,63,94,0.1);color:var(--danger);border:1px solid rgba(244,63,94,0.3)}
+
+  section{padding:5rem 0}
+  .section-label{font-size:.7rem;letter-spacing:3px;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:.75rem}
+  h2{font-size:2rem;font-weight:800;letter-spacing:-1px;margin-bottom:.75rem}
+  h2 span{color:var(--accent)}
+  .section-desc{color:var(--muted);max-width:600px;margin-bottom:3rem;font-size:.95rem}
+
+  /* Cards */
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+  .card:hover{border-color:rgba(0,212,255,0.4);transform:translateY(-2px)}
+  .card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,0.03),transparent);pointer-events:none}
+  .card-icon{font-size:1.8rem;margin-bottom:1rem}
+  .card h3{font-size:1rem;font-weight:700;margin-bottom:.5rem;color:var(--text)}
+  .card p{font-size:.85rem;color:var(--muted);line-height:1.6}
+  .card .tag{display:inline-block;margin-top:.75rem;font-size:.7rem;font-family:'JetBrains Mono',monospace;color:var(--accent);background:rgba(0,212,255,0.08);padding:.2rem .6rem;border-radius:4px}
+
+  /* Problem Statement */
+  .problem-box{border:1px solid rgba(244,63,94,0.3);border-radius:16px;padding:2rem;background:rgba(244,63,94,0.04)}
+  .problem-box h3{color:var(--danger);font-size:1.1rem;margin-bottom:.75rem}
+  .problem-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+  .problem-list li{display:flex;gap:.75rem;font-size:.9rem;color:var(--muted)}
+  .problem-list li::before{content:'✗';color:var(--danger);flex-shrink:0;font-weight:700}
+
+  /* Architecture flow */
+  .flow{display:flex;flex-direction:column;gap:1px;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  .flow-row{display:flex;align-items:stretch;border-bottom:1px solid var(--border)}
+  .flow-row:last-child{border-bottom:none}
+  .flow-step{flex:0 0 160px;background:rgba(0,212,255,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.25rem 1rem;border-right:1px solid var(--border);text-align:center}
+  .flow-step .num{font-size:.65rem;color:var(--accent);font-weight:700;letter-spacing:2px;margin-bottom:.25rem}
+  .flow-step .label{font-size:.8rem;font-weight:700;color:var(--text)}
+  .flow-detail{flex:1;padding:1.25rem 1.5rem;display:flex;flex-direction:column;justify-content:center}
+  .flow-detail .tech{font-size:.75rem;font-family:'JetBrains Mono',monospace;color:var(--accent);margin-bottom:.3rem}
+  .flow-detail p{font-size:.85rem;color:var(--muted)}
+  .flow-arrow{flex:0 0 40px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.2rem}
+
+  /* Tech stack table */
+  .stack-table{width:100%;border-collapse:collapse;font-size:.85rem}
+  .stack-table th{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--border);color:var(--accent);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+  .stack-table td{padding:.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+  .stack-table td:first-child{color:var(--text);font-weight:600}
+  .stack-table tr:hover td{background:rgba(0,212,255,0.02)}
+  .pill{display:inline-block;padding:.15rem .5rem;border-radius:4px;font-size:.7rem;font-family:'JetBrains Mono',monospace;background:rgba(124,58,237,0.15);color:#a78bfa;border:1px solid rgba(124,58,237,0.2)}
+
+  /* Commands */
+  .cmd-block{background:#0a0f18;border:1px solid var(--border);border-radius:12px;padding:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.85rem;position:relative}
+  .cmd-block .prompt{color:var(--accent)}
+  .cmd-block .cmd{color:#e2e8f0}
+  .cmd-block .comment{color:var(--muted)}
+  .cmd-label{font-size:.65rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem}
+
+  /* Divider */
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0}
+
+  footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem}
+  footer span{color:var(--accent)}
+
+  /* Scroll reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <div class="logo">J.A.R.V.I.S.</div>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#services">Services</a>
+    <a href="#stack">Tech Stack</a>
+    <a href="#run">Run</a>
+  </div>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge"><span></span>ENTERPRISE AI SYSTEM — v3.0</div>
+    <h1>
+      <span class="cyan">Just A Rather</span><br/>
+      <span class="purple">Very Intelligent System</span>
+    </h1>
+    <p class="hero-sub">A fully decoupled, microservices-based AI agent with biometric identity, real-time WebRTC voice, local automation, and intelligent web search — all in one command.</p>
+    <div class="badge-row">
+      <span class="badge cyan">YOLOv8n + LBPH</span>
+      <span class="badge purple">LiveKit WebRTC</span>
+      <span class="badge green">Groq Whisper STT</span>
+      <span class="badge cyan">Gemini 2.0 LLM</span>
+      <span class="badge purple">Google Cloud TTS</span>
+      <span class="badge green">MCP + Playwright</span>
+      <span class="badge red">SerpAPI</span>
+      <span class="badge cyan">n8n Workflows</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PROBLEM STATEMENT -->
+  <section id="problem" class="reveal">
+    <div class="section-label">01 — Problem Statement</div>
+    <h2>What We're <span>Solving</span></h2>
+    <p class="section-desc">Existing AI assistants are cloud-locked, monolithic, and lack true local identity verification or real-time voice.</p>
+    <div class="problem-box">
+      <h3>Core Gaps in Traditional AI Assistants</h3>
+      <ul class="problem-list">
+        <li>No biometric identity gate — anyone can use it</li>
+        <li>Voice is either browser-only or laggy HTTP polling, not real-time WebRTC</li>
+        <li>No local system control (power management, browser automation)</li>
+        <li>Cannot execute enterprise workflows (n8n integrations missing)</li>
+        <li>Monolithic architecture — one crash kills everything</li>
+        <li>Real-time web search not integrated into the voice pipeline</li>
+        <li>No decoupled microservice separation for scale and resilience</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture" class="reveal">
+    <div class="section-label">02 — Architecture</div>
+    <h2>Voice Pipeline <span>Flow</span></h2>
+    <p class="section-desc">Every spoken word travels through a precisely orchestrated pipeline from camera to speaker.</p>
+    <div class="flow">
+      <div class="flow-row">
+        <div class="flow-step"><div class="num">STEP 1</div><div class="label">Face Auth</div></div>
+        <div class="flow-detail">
+          <div class="tech">YOLOv8n → Haar Cascade → LBPH Recognizer</div>
+          <p>Camera captures frame. YOLOv8n detects person body. Haar cascade refines to face ROI. LBPH recognizes against trainer.yml. Majority vote over 20 frames. Identity confirmed as <strong>nnssprasad</strong>.</p>
+        </div>
+        <div class="flow-arrow">↓</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step"><div class="num">STEP 2</div><div class="label">Voice Capture</div></div>
+        <div class="flow-detail">
+          <div class="tech">Microphone → LiveKit WebRTC Room → Audio Stream</div>
+          <p>After auth, LiveKit Python agent joins the WebRTC room. Audio is streamed in real-time over WebRTC — zero HTTP polling, sub-100ms latency.</p>
+        </div>
+        <div class="flow-arrow">↓</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step"><div class="num">STEP 3</div><div class="label">STT</div></div>
+        <div class="flow-detail">
+          <div class="tech">Groq Whisper-large-v3 (OpenAI-compatible endpoint)</div>
+          <p>Audio chunks are sent to Groq's ultra-fast Whisper endpoint. Transcription returns in &lt;300ms. Far faster than OpenAI's own endpoint.</p>
+        </div>
+        <div class="flow-arrow">↓</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step"><div class="num">STEP 4</div><div class="label">NLU / LLM</div></div>
+        <div class="flow-detail">
+          <div class="tech">Gemini 2.0 Flash (primary) → Groq LLaMA 3.3 (fallback)</div>
+          <p>Transcript fed to LLM with a system prompt aware of all MCP tools. LLM decides: search web, run local automation, fetch schedule, or trigger n8n workflow.</p>
+        </div>
+        <div class="flow-arrow">↓</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step"><div class="num">STEP 5</div><div class="label">Tool Exec</div></div>
+        <div class="flow-detail">
+          <div class="tech">MCP Server (port 3143) — FastMCP + Playwright + SerpAPI + powercfg</div>
+          <p>LLM calls a tool by name. MCP server executes: SerpAPI search, headless Playwright browser action, Windows power plan switch, or n8n webhook POST.</p>
+        </div>
+        <div class="flow-arrow">↓</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step"><div class="num">STEP 6</div><div class="label">TTS</div></div>
+        <div class="flow-detail">
+          <div class="tech">Google Cloud TTS — en-US-Journey-D Neural voice</div>
+          <p>Response text synthesized into high-quality audio. Streamed back through LiveKit WebRTC room to the user's speakers. No file writes, no delays.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MICROSERVICES -->
+  <section id="services" class="reveal">
+    <div class="section-label">03 — Microservices</div>
+    <h2>Decoupled <span>Services</span></h2>
+    <p class="section-desc">Each service is independently startable, testable, and replaceable. One crash does not affect others.</p>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>Brain — Bun Daemon</h3>
+        <p>TypeScript/Bun WebSocket server on port 3142. Manages LLM sessions, task board, conversation history, SQLite DB, n8n wiring, and serves the React dashboard.</p>
+        <span class="tag">bun run src/daemon/index.ts</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <h3>Vision Service</h3>
+        <p>YOLOv8n detects persons. Haar cascade refines to face. LBPH authenticates against trainer.yml. OCR via Tesseract. Returns authenticated user or denies access.</p>
+        <span class="tag">vision_service.py</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎙️</div>
+        <h3>LiveKit Voice Agent</h3>
+        <p>WebRTC agent using livekit-agents v1.x. Groq Whisper STT → Gemini 2.0 LLM → Google Cloud TTS. Silero VAD pre-loaded in worker. Speaks greeting on join.</p>
+        <span class="tag">livekit_agent.py dev</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <h3>MCP Tool Server</h3>
+        <p>FastMCP server exposing 5 tools: SerpAPI search, Playwright browser automation, Power Saving Mode, schedule reader, and n8n workflow trigger.</p>
+        <span class="tag">mcp_server.py (port 3143)</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3>Sidecar Bridge</h3>
+        <p>Orchestrates face auth gate then bridges legacy WebSocket mic/speaker loop to the Bun Brain. Handles auto-reconnect with ping keepalive.</p>
+        <span class="tag">sidecar.py</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <h3>n8n Workflows</h3>
+        <p>Runs on localhost:5678. Triggered via webhook by the MCP server. Handles complex multi-step automations: email sends, calendar updates, Slack messages.</p>
+        <span class="tag">n8n (external)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section id="stack" class="reveal">
+    <div class="section-label">04 — Tech Stack</div>
+    <h2>Technology <span>Stack</span></h2>
+    <p class="section-desc">Every component chosen for speed, reliability, and open standards.</p>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="stack-table">
+        <thead><tr><th>Component</th><th>Technology</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Runtime (Backend)</td><td><span class="pill">Bun v1.x</span></td><td>3× faster than Node.js, native TypeScript, WebSocket built-in</td></tr>
+          <tr><td>Voice Protocol</td><td><span class="pill">LiveKit WebRTC</span></td><td>Sub-100ms audio, cloud-hosted room at wss://ai-assistant-8h7l160m.livekit.cloud</td></tr>
+          <tr><td>Speech-to-Text</td><td><span class="pill">Groq Whisper-v3</span></td><td>Fastest Whisper inference available, OpenAI-compatible API</td></tr>
+          <tr><td>Language Model</td><td><span class="pill">Gemini 2.0 Flash</span> / <span class="pill">Groq LLaMA 3.3</span></td><td>Gemini primary, Groq as instant fallback with same prompt</td></tr>
+          <tr><td>Text-to-Speech</td><td><span class="pill">Google Cloud TTS</span></td><td>Journey-D neural voice, most natural sounding, streamed via LiveKit</td></tr>
+          <tr><td>Face Detection</td><td><span class="pill">YOLOv8n</span></td><td>6MB local model, real-time person bounding box</td></tr>
+          <tr><td>Face Recognition</td><td><span class="pill">LBPH (OpenCV)</span></td><td>Lightweight, no cloud, trained on local samples, trainer.yml 4.2MB</td></tr>
+          <tr><td>OCR</td><td><span class="pill">Tesseract</span></td><td>Industry standard, reads text from any camera frame</td></tr>
+          <tr><td>Tool Protocol</td><td><span class="pill">MCP (FastMCP)</span></td><td>Standard Model Context Protocol — any LLM can call tools by name</td></tr>
+          <tr><td>Browser Automation</td><td><span class="pill">Playwright</span></td><td>Headless Chromium, async, reliable element selectors</td></tr>
+          <tr><td>Web Search</td><td><span class="pill">SerpAPI</span></td><td>Structured search results with answer boxes, no scraping</td></tr>
+          <tr><td>Workflow Automation</td><td><span class="pill">n8n</span></td><td>Self-hosted, 400+ integrations, webhook-triggered</td></tr>
+          <tr><td>Frontend</td><td><span class="pill">React + Bun</span></td><td>Real-time dashboard with WebSocket streaming, task board, LiveKit UI</td></tr>
+          <tr><td>Database</td><td><span class="pill">SQLite</span></td><td>Embedded, zero config, fast reads for conversation history</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- RUN -->
+  <section id="run" class="reveal">
+    <div class="section-label">05 — How to Run</div>
+    <h2>One Command, <span>Everything</span></h2>
+    <p class="section-desc">A single unified launcher starts all 4 microservices with color-coded labeled output.</p>
+    <div class="grid2">
+      <div>
+        <div class="cmd-label">Step 1 — Install Dependencies (once)</div>
+        <div class="cmd-block">
+          <div><span class="prompt">$ </span><span class="cmd">cd jarvis-main</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">bun install</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">bun run install:sidecar</span></div>
+          <div class="comment"># installs pip packages + playwright chromium</div>
+        </div>
+      </div>
+      <div>
+        <div class="cmd-label">Step 2 — Launch Everything</div>
+        <div class="cmd-block">
+          <div><span class="prompt">$ </span><span class="cmd">bun run launch</span></div>
+          <div style="margin-top:1rem;color:#64748b;font-size:.8rem">Starts in order with staggered delays:</div>
+          <div style="color:#00d4ff;margin-top:.5rem">■ BRAIN   </div>
+          <div style="color:#7c3aed">■ MCP     → port 3143</div>
+          <div style="color:#f59e0b">■ LIVEKIT → LiveKit Cloud</div>
+          <div style="color:#10b981">■ SIDECAR → Face Auth + Mic</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:2rem">
+      <div class="cmd-label">What happens when you run it</div>
+      <div class="grid3" style="margin-top:1rem">
+        <div class="card"><div class="card-icon">🎯</div><h3>Face Scan</h3><p>Camera opens, YOLOv8 + LBPH verifies nnssprasad. Access granted in ~5 seconds.</p></div>
+        <div class="card"><div class="card-icon">📅</div><h3>Morning Brief</h3><p>JARVIS reads your schedule, deadlines and meetings from data/schedule.json via MCP tool.</p></div>
+        <div class="card"><div class="card-icon">🎙️</div><h3>Voice Ready</h3><p>Say "Jarvis, what is the weather?" → SerpAPI answers. "Enable power saving" → powercfg runs.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>J.A.R.V.I.S. — Just A Rather Very Intelligent System &nbsp;·&nbsp; Built for <span>nnssprasad</span> &nbsp;·&nbsp; Decoupled Microservices Architecture</p>
+  <p style="margin-top:.5rem;font-size:.7rem">YOLOv8 · LBPH · LiveKit · Groq · Gemini · Google Cloud TTS · MCP · Playwright · SerpAPI · n8n · Bun · React</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') })
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
